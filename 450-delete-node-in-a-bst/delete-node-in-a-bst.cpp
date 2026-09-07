@@ -14,43 +14,44 @@ public:
     TreeNode* deleteNode(TreeNode* root, int key) {
         
         if (root == nullptr) return nullptr;
-        
-        // search in left side
+
+        // Search in left subtree
         if (key < root->val) {
             root->left = deleteNode(root->left, key);
         }
-        
-        // search in right side
+
+        // Search in right subtree
         else if (key > root->val) {
             root->right = deleteNode(root->right, key);
         }
-        
-        // Node mil gaya
+
+        // Node found
         else {
 
             // No left child
             if (root->left == nullptr) {
                 return root->right;
             }
-            
+
             // No right child
             if (root->right == nullptr) {
                 return root->left;
             }
 
-            // Two children
+            // Node has two children
 
-            TreeNode* current = root->right;
+            // Left subtree ka maximum node find karo
+            TreeNode* current = root->left;
 
-            while (current->left != nullptr) {
-                current = current->left;
+            while (current->right != nullptr) {
+                current = current->right;
             }
 
-            // Replace
+            // Replace root value
             root->val = current->val;
 
-            // Delete duplicate
-            root->right = deleteNode(root->right, current->val);
+            // Left subtree se duplicate node delete karo
+            root->left = deleteNode(root->left, current->val);
         }
 
         return root;
