@@ -1,0 +1,27 @@
+class Solution {
+public:
+    bool checkValidString(string s) {
+        int minopen =0;
+        int maxopen =0;
+
+        for ( char c : s) {
+            if ( c== '(') {
+                minopen++;
+                maxopen++;
+            }
+            else if ( c ==')') {
+                minopen--;
+                maxopen--;
+            }
+            else if ( c =='*') {
+                minopen--;
+                maxopen++;
+            }
+
+            if ( maxopen < 0) return false;
+            if ( minopen < 0) minopen =0;
+        }
+        return minopen ==0;
+        
+    }
+};
